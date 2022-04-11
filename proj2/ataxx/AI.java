@@ -4,6 +4,7 @@
 
 package ataxx;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static ataxx.PieceColor.*;
@@ -11,7 +12,7 @@ import static java.lang.Math.min;
 import static java.lang.Math.max;
 
 /** A Player that computes its own moves.
- *  @author
+ *  @author Frank
  */
 class AI extends Player {
 
@@ -22,10 +23,14 @@ class AI extends Player {
     private static final int WINNING_VALUE = Integer.MAX_VALUE - 20;
     /** A magnitude greater than a normal value. */
     private static final int INFTY = Integer.MAX_VALUE;
+    /** Safety offset, how safe the AI will play. **/
+    private static int safety = 2;
+    /** Aggression factor, how aggressive the AI will play. **/
+    private static int aggress = 2;
 
     /** A new AI for GAME that will play MYCOLOR. SEED is used to initialize
      *  a random-number generator for use in move computations.  Identical
-     *  seeds produce identical behaviour. */
+     *  seeds produce identical  behaviour. */
     AI(Game game, PieceColor myColor, long seed) {
         super(game, myColor);
         _random = new Random(seed);
@@ -55,9 +60,9 @@ class AI extends Player {
         Board b = new Board(getBoard());
         _lastFoundMove = null;
         if (myColor() == RED) {
-            minMax(b, MAX_DEPTH, true, 1, -INFTY, INFTY);
+            minMax(b, MAX_DEPTH, true, 1, -WINNING_VALUE, WINNING_VALUE);
         } else {
-            minMax(b, MAX_DEPTH, true, -1, -INFTY, INFTY);
+            minMax(b, MAX_DEPTH, true, -1, -WINNING_VALUE, WINNING_VALUE);
         }
         return _lastFoundMove;
     }
@@ -75,24 +80,64 @@ class AI extends Player {
      *  on BOARD, does not set _foundMove. */
     private int minMax(Board board, int depth, boolean saveMove, int sense,
                        int alpha, int beta) {
-        /* We use WINNING_VALUE + depth as the winning value so as to favor
-         * wins that happen sooner rather than later (depth is larger the
-         * fewer moves have been made. */
         if (depth == 0 || board.getWinner() != null) {
             return staticScore(board, WINNING_VALUE + depth);
         }
-
-        Move best;
-        best = null;
-        int bestScore;
-        bestScore = 0; // FIXME
-
-        // FIXME
-
+        int bestScore = -sense * INFTY;
+        PieceColor curntCol = RED;
+        if (sense == -1) {
+            curntCol = BLUE;
+        }
+        Board testBoard = new Board(board);
+        ArrayList<Move> bestMoves = new ArrayList<>();
+        scannerLoop:
+        for (int i = Board.index('a', '1');
+             i <= Board.index('g', '7'); i++) {
+            char[] fromCo = coordMake(i, 0, 0);
+            if (board.get(i) == curntCol) {
+                for (int y = -2; y <= 2; y++) {
+                    for (int x = -2; x <= 2; x++) {
+                        char[] toCo = coordMake(i, y, x);
+                        if (board.legalMove(fromCo[0], fromCo[1],
+                                toCo[0], toCo[1])) {
+                            testBoard.makeMove(Move.move
+                                    (fromCo[0], fromCo[1], toCo[0], toCo[1]));
+                            int response = minMax(testBoard, depth - 1,
+                                    false, -sense, alpha, beta);
+                            if (response == bestScore) {
+                                bestMoves.add(Move.move
+                                    (fromCo[0], fromCo[1], toCo[0], toCo[1]));
+                            } else if (curntCol == RED
+                                    ? response > bestScore
+                                    : response < bestScore) {
+                                bestMoves.clear();
+                                bestMoves.add(Move.move
+                                     (fromCo[0], fromCo[1], toCo[0], toCo[1]));
+                                bestScore = response;
+                                if (curntCol == myColor()) {
+                                    alpha = max(alpha, bestScore);
+                                } else {
+                                    beta = min(beta, bestScore);
+                                }
+                                if (alpha >= beta) {
+                                    break scannerLoop;
+                                }
+                            }
+                            testBoard.undo();
+                        }
+                    }
+                }
+            }
+        }
         if (saveMove) {
-            _lastFoundMove = best;
+            _lastFoundMove = bestMoves.get(_random.nextInt(bestMoves.size()));
         }
         return bestScore;
+    }
+    private char[] coordMake(int index, int offsetY, int offsetX) {
+        return new char[]
+        {(char) ('a' - 2 + index % 11 + offsetY),
+            (char) ('1' - 2 + Math.floorDiv(index, 11) + offsetX)};
     }
 
     /** Return a heuristic value for BOARD.  This value is +- WINNINGVALUE in
@@ -106,10 +151,41 @@ class AI extends Player {
             default -> 0;
             };
         }
+        int pieceDiff = board.numPieces(RED) - board.numPieces(BLUE);
 
-        return 0; // FIXME
+        int score = aggress * pieceDiff;
+        for (int start = Board.index('a', '1');
+             start <= Board.index('g', '7'); start++) {
+            if (board.get(start) == RED) {
+                for (int y = -1; y <= 1; y++) {
+                    for (int x = -1; x <= 1; x++) {
+                        if (x == 0 && y == 0) {
+                            continue;
+                        } else if (board.get(Board.neighbor(start, y, x))
+                                != EMPTY) {
+                            score += safety;
+                        }
+                    }
+                }
+            } else if (board.get(start) == BLUE) {
+                for (int y = -1; y <= 1; y++) {
+                    for (int x = -1; x <= 1; x++) {
+                        if (x == 0 && y == 0) {
+                            continue;
+                        } else if (board.get(Board.neighbor(start, y, x))
+                                != EMPTY) {
+                            score -= aggress;
+                        }
+                    }
+                }
+            }
+        }
+        return score;
     }
+
+
 
     /** Pseudo-random number generator for move computation. */
     private Random _random = new Random();
 }
+

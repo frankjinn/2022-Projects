@@ -60,4 +60,19 @@ public class MoveTest {
 
         assertEquals("wrong string for pass", "-", pass().toString());
     }
+
+    @Test
+    public void miscTests() {
+        Move m = move('a', '3', 'b', '2');
+        assertNotNull(m);
+        assertFalse("move is pass", m.isPass());
+        assertTrue("move not extend", m.isExtend());
+        assertFalse("move is jump", m.isJump());
+
+        Move m1 = move('g', '1', 'g', '2');
+        assertNotNull(m1);
+        assertFalse("move is pass", m1.isPass());
+        assertTrue("move not extend", m1.isExtend());
+        assertFalse("move is jump", m1.isJump());
+    }
 }

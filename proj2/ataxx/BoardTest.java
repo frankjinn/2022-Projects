@@ -152,6 +152,10 @@ public class BoardTest {
         b.makeMove('a', '7', 'b', '7');
         assertFalse("blocks not placeable once game starts",
                 b.legalBlock('d', '5'));
+
+        Board c = new Board();
+        c.setBlock("c4");
+        assertEquals(c.get('e', '4'), BLOCKED);
     }
 
     @Test

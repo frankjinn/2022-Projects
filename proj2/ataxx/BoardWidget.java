@@ -14,11 +14,8 @@ import java.awt.event.MouseEvent;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
-import static ataxx.PieceColor.*;
-import static ataxx.Utils.*;
-
 /** Widget for displaying an Ataxx board.
- *  @author
+ *  @author Frank Jin
  */
 class BoardWidget extends Pad  {
 
@@ -76,13 +73,57 @@ class BoardWidget extends Pad  {
     public synchronized void paintComponent(Graphics2D g) {
         g.setColor(BLANK_COLOR);
         g.fillRect(0, 0, _dim, _dim);
+        super.paintComponent(g);
+        g.setColor(LINE_COLOR);
+        g.setStroke(LINE_STROKE);
+        for (int k = 0; k < 7; k++) {
+            g.drawLine(0, k * SQDIM, _dim, k * SQDIM);
+            g.drawLine(k * SQDIM, 0, k * SQDIM, _dim);
+        }
 
-        // FIXME
+        if (_selectedCol != 0 && _selectedRow != 0) {
+            int selectedIndex = Board.index(_selectedCol, _selectedRow);
+            g.setStroke(new BasicStroke(0));
+            g.setColor(SELECTED_COLOR);
+            g.fillRect(SQDIM * (selectedIndex % 11 - 2),
+                    SQDIM * (7 - Math.floorDiv(selectedIndex, 11) + 1),
+                    SQDIM, SQDIM);
+        }
+
+        for (char x = 'a'; x <= 'g'; x = (char) (x + 1)) {
+            for (char y = '1'; y <= '7'; y = (char) (y + 1)) {
+                int index = Board.index(x, y);
+                if (_model.get(x, y) == PieceColor.BLOCKED) {
+                    drawBlock(g, SQDIM * (index % 11) - _dim / 2,
+                            SQDIM * Math.floorDiv(index, 11) + _dim / 2);
+                } else if (_model.get(x, y) != PieceColor.EMPTY) {
+                    if (_model.get(x, y) == PieceColor.BLUE) {
+                        g.setColor(BLUE_COLOR);
+                    } else {
+                        g.setColor(RED_COLOR);
+                    }
+                    g.fillOval(SQDIM * (index % 11 - 2) + SQDIM / 2
+                                - PIECE_RADIUS, SQDIM
+                                * (7 - Math.floorDiv(index, 11) + 1)
+                                + SQDIM / 2 - PIECE_RADIUS,
+                            PIECE_RADIUS * 2, PIECE_RADIUS * 2);
+                }
+            }
+        }
     }
 
     /** Draw a block centered at (CX, CY) on G. */
     void drawBlock(Graphics2D g, int cx, int cy) {
-        // FIXME
+        int leftX = cx - BLOCK_WIDTH / 2;
+        int topY = cy + BLOCK_WIDTH / 2;
+        super.paintComponent(g);
+        g.setColor(BLOCK_COLOR);
+        g.setStroke(BLOCK_STROKE);
+        g.drawRect(leftX, topY, BLOCK_WIDTH, BLOCK_WIDTH);
+        g.drawLine(leftX, topY, leftX + BLOCK_WIDTH, topY - BLOCK_WIDTH);
+        g.drawLine(leftX, topY - BLOCK_WIDTH, leftX + BLOCK_WIDTH, topY);
+        g.drawLine(cx, cy - BLOCK_WIDTH / 2, cx, cy + BLOCK_WIDTH / 2);
+        g.drawLine(cx - BLOCK_WIDTH / 2, cy, cx + BLOCK_WIDTH / 2, cy);
     }
 
     /** Clear selected block, if any, and turn off block mode. */
@@ -106,10 +147,17 @@ class BoardWidget extends Pad  {
             if (mouseCol >= 'a' && mouseCol <= 'g'
                 && mouseRow >= '1' && mouseRow <= '7') {
                 if (_blockMode) {
-                    _commandQueue.offer("block c3"); // FIXME
+                    _commandQueue.offer("block " + mouseCol + mouseRow);
                 } else {
                     if (_selectedCol != 0) {
-                        // FIXME
+                        if (_model.get(_selectedCol, _selectedRow)
+                                == _model.whoseMove()
+                                && _model.legalMove(_selectedCol, _selectedRow,
+                                mouseCol, mouseRow)) {
+                            _commandQueue.offer("" + _selectedCol
+                                    + _selectedRow + "-" + mouseCol + mouseRow);
+                        }
+                        selectSquare("" + mouseCol + mouseRow);
                         _selectedCol = _selectedRow = 0;
                     } else {
                         _selectedCol = mouseCol;

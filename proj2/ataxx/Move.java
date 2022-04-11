@@ -11,7 +11,7 @@ import static java.lang.Math.abs;
 
 /** Represents an Ataxx move. There is one Move object created for
  *  each distinct Move.
- *  @author
+ *  @author Frank Jin
  */
 class Move {
 
@@ -31,8 +31,16 @@ class Move {
         _row1 = (char) (row1 + '1' - 2);
         _fromIndex = row0 * EXTENDED_SIDE + col0;
         _toIndex = row1 * EXTENDED_SIDE + col1;
-        _isExtend = false; // FIXME
-        _isJump = false; // FIXME
+
+        if (fromIndex() != -1) {
+            if (abs(_col1 - _col0) <= 1 && abs(_row1 - _row0) <= 1) {
+                _isExtend = true;
+                _isJump = false;
+            } else {
+                _isExtend = false;
+                _isJump = true;
+            }
+        }
     }
 
     /** A pass. */
@@ -123,7 +131,11 @@ class Move {
 
     @Override
     public String toString() {
-        return ""; // FIXME
+        if (fromIndex() == -1) {
+            return "-";
+        } else {
+            return "" + col0() + row0() + "-" + col1() + row1();
+        }
     }
 
     /** Syntax of a move.  Groups capture row and column. */
