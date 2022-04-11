@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<!-- saved from url=(0074)https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Project 2 | CS 61B Spring 2022</title>
+    
+
+    
+
+
+    <link href="./Project 2 _ CS 61B Spring 2022_files/css" rel="stylesheet" type="text/css">
+    <link href="./Project 2 _ CS 61B Spring 2022_files/common.css" rel="stylesheet" type="text/css">
+    <link href="./Project 2 _ CS 61B Spring 2022_files/lab.css" rel="stylesheet" type="text/css">
+    <link href="./Project 2 _ CS 61B Spring 2022_files/tomorrow.css" rel="stylesheet" type="text/css">
+    
+    <link href="./Project 2 _ CS 61B Spring 2022_files/proj.css" rel="stylesheet" type="text/css">
+
+    <script src="./Project 2 _ CS 61B Spring 2022_files/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <script src="./Project 2 _ CS 61B Spring 2022_files/highlight.pack.js" type="text/javascript"></script>
+    <script src="./Project 2 _ CS 61B Spring 2022_files/sidebar.js" type="text/javascript"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script type="text/x-mathjax-config;executed=true">
+MathJax.Hub.Config({
+
+    tex2jax: {inlineMath: [["$", "$"]]}
+})
+
+</script>
+<script type="text/javascript" src="./Project 2 _ CS 61B Spring 2022_files/MathJax.js"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax_LineBox {display: table!important}
+.MathJax_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Blank; src: url('about:blank')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div>
+    <div class="navbar-top"><div id="navitems">
+        <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/index.html"><div class="navitem">Main</div></a>
+        <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/about.html"><div class="navitem">Course Info</div></a>
+        <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/staff.html"><div class="navitem">Staff</div></a>
+        <a href="https://bcourses.berkeley.edu/courses/1513117/external_tools/78985" target="_blank"><div class="navitem">Screencasts</div></a>
+        <!-- <a href="../../../assign.html"><div class="navitem">Assignments</div></a> -->
+        <a href="https://beacon.datastructur.es/" target="_blank"><div class="navitem">Beacon</div></a>
+        <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/cgi-bin/gitbug.cgi/index" target="_blank"><div class="navitem">GitBugs</div></a>
+        <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/resources.html"><div class="navitem">Resources</div></a>
+        <a href="https://piazza.com/class/kyhxhjauuc26wy"><div class="navitem">Piazza</div></a>
+    </div></div>
+    <div id="sidebar">
+        <div id="sidebar-content">
+            <h3>Navigation</h3>
+            <ul>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#navigation">Navigation</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#useful-links-and-updates">Useful Links and Updates</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#background">Background</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#notation">Notation</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#blocks">Blocks</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#textual-input-language">Textual Input Language</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#the-commands">The Commands:</a></li>
+  <ul>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#starting-and-ending-games">Starting and Ending Games</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#commands-to-set-parameters">Commands to Set Parameters</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#entering-and-undoing-moves">Entering and Undoing Moves</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#miscellaneous-commands">Miscellaneous Commands</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#optional-helpful-commands-to-add">Optional (Helpful) Commands To Add</a></li>
+  </ul>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#output">Output</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#running-the-program">Running the Program</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#testing">Testing</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#your-task">Your Task</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#some-notes-and-hints-about-the-skeleton">Some Notes and Hints About the Skeleton</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#advice">Advice</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#checkpoint-grading-details">Checkpoint Grading Details</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#grading-details">Grading Details</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#extra-credit">Extra Credit</a></li>
+</ul>
+        </div>
+    </div>
+    <div id="content-container" class="content-spacer"><main id="content">
+        <header class="title">Project 2: Ataxx</header>
+        
+<h2 id="navigation">Navigation</h2>
+
+
+<ul>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#useful-links-and-updates">Useful Links and Updates</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#background">Background</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#notation">Notation</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#blocks">Blocks</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#textual-input-language">Textual Input Language</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#the-commands">The Commands</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#output">Output</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#running-the-program">Running The Program</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#your-task">Your Task</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#some-notes-and-hints-about-the-skeleton">Some Notes/Hints About The Skeleton</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#advice">Advice</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#checkpoint-grading-details">Checkpoint Grading Details</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#grading-details">Grading Details</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#extra-credit">Extra Credit</a></li>
+</ul>
+
+
+<h2 id="useful-links-and-updates">Useful Links and Updates</h2>
+
+
+<ul>
+  <li><a href="https://youtu.be/3yOvYgWgJ7A">Ataxx Board.java Intro Video</a></li>
+  <li><a href="https://youtu.be/QEQHO_Ntjfg">Ataxx Skeleton Overview Video</a></li>
+  <li><a href="https://docs.google.com/presentation/d/1ERXep0MXhiMJx1Sp-ebHqjcmfc-fsUBI2eTK1u4cZ5A/edit?usp=sharing">Ataxx Intro Slides</a></li>
+  <li><a href="https://drive.google.com/file/d/1-taIbkFRR_RmXYc8jFXGi2pWYlQJJ-NY/view?usp=sharing">Ataxx AI.java Intro Video</a></li>
+  <li><a href="https://www.youtube.com/watch?v=wlhssAg7d-M">Unit Testing</a></li>
+  <li><a href="https://www.youtube.com/watch?v=fDOKU6uQbYo">Acceptance Testing</a></li>
+  <li><a href="https://docs.google.com/presentation/d/1v8oeqMAdWaLXmKvtuJiTlC_acXvllHGuPDGZ3oU-uS4/edit?usp=sharing">Acceptance Testing Slides</a></li>
+  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfqv_yTAhf6BiodGijbMMEnMlfM1h0Etzwp8ne3IGDU5Z_Cew/viewform">Conceptual Understanding Spec Quiz</a></li>
+  <li><a href="https://docs.google.com/presentation/d/1cuqFXlyxNdkW1O4InpUE7SUi18I7OiU9vrHvOQT0UrU/edit?usp=sharing">Undo Mechanics Review Slides</a></li>
+  <li><a href="https://drive.google.com/file/d/1uplEzEf6rJQhaqb3v2xlP7YXHK-VQCFr/view?usp=sharing">Undo Mechanics Review Recording</a></li>
+  <li><a href="https://drive.google.com/file/d/1hcv4qjpw8vIbclPifp6ht3C8FTRadeJ-/view?usp=sharing">Tips, Q &amp; A Recording</a></li>
+  <li><a href="https://docs.google.com/presentation/d/1YCqCMTsPGk3YGrAKJJ9T_ZK0-bFKHwnh0xv9gjcaznQ/edit#slide=id.g1198712154a_0_107">Tips, Q &amp; A Presentation Slides</a></li>
+</ul>
+
+
+<h2 id="background">Background</h2>
+
+
+<p>Ataxx is a two-person game played with red and blue pieces on a 7-by-7
+board.
+As illustrated below,
+there are two possible kinds of moves:</p>
+
+<ul>
+  <li><strong>Extending</strong> - you can <em>extend</em> from
+  a piece of your own color by laying down a new piece of
+  your color in an empty square next to that existing piece
+  (horizontally, vertically, or diagonally).</li>
+  <li><strong>Jumping</strong> - you can <em>jump</em> by moving a
+  piece of your own color to an empty, <em>non-adjacent</em> square that is no
+  more than two rows and no more than two columns distant.</li>
+</ul>
+
+<p>In either case, all opposing
+pieces that are next to the previously empty destination square are
+replaced by pieces of your color.  Here is an example of a
+starting position (in the
+middle) and two possible moves with the same piece. Squares marked
+<span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 0.784em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.628em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.826em, 1000.58em, 2.659em, -999.997em); top: -2.497em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mo" id="MathJax-Span-3" style="font-family: STIXGeneral-Regular;">×</span></span><span style="display: inline-block; width: 0px; height: 2.503em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.816em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>×</mo></math></span></span><script type="math/tex" id="MathJax-Element-1">\times</script> show red's other possible jumps with that piece:</p>
+
+<a name="figure1"></a>
+<img src="./Project 2 _ CS 61B Spring 2022_files/figure1.png" alt="Possible Moves">
+<center> Figure 1. Extends and jumps. </center>
+
+<p>At the beginning of the game, we start with pieces in all four corners:</p>
+
+<a name="figure2"></a>
+<img src="./Project 2 _ CS 61B Spring 2022_files/figure2.png" alt="Initial Position">
+<center> Figure 2. Initial position. </center>
+
+<p>The red player goes first, and the two players alternate
+until there are no more moves possible
+or until there have been 25 <em>consecutive</em> jumps between both players.
+You are allowed to skip a move (we will call this a <em>pass</em>) only
+if you have at least one piece on the board, but
+no legal move.  The winner is the player who has the most
+pieces at the end of the game; thus, you don't automatically lose just
+because you can't move. The one exception to this condition
+is if you have no pieces left on the board. In this case, you have no way of
+winning, so you will automatically lose.
+It is possible also to tie, when both sides end up with the same number of
+pieces on the board and:</p>
+
+<ul>
+  <li>neither player can make a move, or</li>
+  <li>the maximum number of jumps (25 consecutive across both players) has been 
+  reached.</li>
+</ul>
+
+
+<h2 id="notation">Notation</h2>
+
+<p>We'll denote columns with
+letters a--g from the left and rows with numerals 1--7 from the
+bottom, as shown in <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#figure2">Figure 2</a>.
+An ordinary move consists of
+two positions separated by a
+hyphen in the format <span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-2-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/msub&gt;&lt;msub&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/msub&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/msub&gt;&lt;msub&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/msub&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-4" style="width: 5.576em; display: inline-block;"><span style="display: inline-block; position: relative; width: 4.638em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.773em, 1004.64em, 2.815em, -999.997em); top: -2.497em; left: 0em;"><span class="mrow" id="MathJax-Span-5"><span class="msubsup" id="MathJax-Span-6"><span style="display: inline-block; position: relative; width: 0.888em; height: 0px;"><span style="position: absolute; clip: rect(3.44em, 1000.42em, 4.169em, -999.997em); top: -4.008em; left: 0em;"><span class="mi" id="MathJax-Span-7" style="font-family: STIXGeneral-Italic;">c</span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span><span style="position: absolute; top: -3.852em; left: 0.471em;"><span class="mn" id="MathJax-Span-8" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">0</span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span></span></span><span class="msubsup" id="MathJax-Span-9"><span style="display: inline-block; position: relative; width: 0.836em; height: 0px;"><span style="position: absolute; clip: rect(3.44em, 1000.42em, 4.169em, -999.997em); top: -4.008em; left: 0em;"><span class="mi" id="MathJax-Span-10" style="font-family: STIXGeneral-Italic;">r<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span><span style="position: absolute; top: -3.852em; left: 0.367em;"><span class="mn" id="MathJax-Span-11" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">0</span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span></span></span><span class="mo" id="MathJax-Span-12" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">−</span><span class="msubsup" id="MathJax-Span-13" style="padding-left: 0.263em;"><span style="display: inline-block; position: relative; width: 0.888em; height: 0px;"><span style="position: absolute; clip: rect(3.44em, 1000.42em, 4.169em, -999.997em); top: -4.008em; left: 0em;"><span class="mi" id="MathJax-Span-14" style="font-family: STIXGeneral-Italic;">c</span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span><span style="position: absolute; top: -3.852em; left: 0.471em;"><span class="mn" id="MathJax-Span-15" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">1</span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span></span></span><span class="msubsup" id="MathJax-Span-16"><span style="display: inline-block; position: relative; width: 0.836em; height: 0px;"><span style="position: absolute; clip: rect(3.44em, 1000.42em, 4.169em, -999.997em); top: -4.008em; left: 0em;"><span class="mi" id="MathJax-Span-17" style="font-family: STIXGeneral-Italic;">r<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span><span style="position: absolute; top: -3.852em; left: 0.367em;"><span class="mn" id="MathJax-Span-18" style="font-size: 70.7%; font-family: STIXGeneral-Regular;">1</span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.503em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.247em; border-left: 0px solid; width: 0px; height: 1.003em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>c</mi><mn>0</mn></msub><msub><mi>r</mi><mn>0</mn></msub><mo>−</mo><msub><mi>c</mi><mn>1</mn></msub><msub><mi>r</mi><mn>1</mn></msub></math></span></span><script type="math/tex" id="MathJax-Element-2">c_0r_0-c_1r_1</script> (e.g., <code>g1-f2</code>).
+The first position gives a piece owned by the current
+player,  and the second gives an empty square to which the piece
+jumps or extends.
+A single hyphen denotes a case where one
+player has no move and must pass (it is only legal when there is no
+other legal move).</p>
+
+
+<h2 id="blocks">Blocks</h2>
+
+
+<p>To make things even more interesting, you can place a
+set of <em>blocks</em> symmetrically about the center of the board before
+playing.  These are
+pre-filled squares that may never be moved to (the blocks
+themselves never move).  <strong>Setting blocks is only possible
+at the start of the game.</strong>
+The illustration below is an example
+of a starting configuration with 10 blocks.  Each block is always
+reflected across the
+middle row and the middle column. In other words, there is symmetry both
+horizontally and vertically for any block that is placed.
+No block may be placed in the four corner squares, since the initial 
+configuration has pieces there.</p>
+
+<p>For example, the configuration below may be described by listing three squares:
+"b2", "c3", and "c4"; reflecting these three gives in addition
+"f2", "e3", "e4", "b6", "c5", "f6", and "e5".
+Alternatively, the same configuration may be described as
+"f2", "c3", and "e4".</p>
+
+<a name="figure3"></a>
+<img src="./Project 2 _ CS 61B Spring 2022_files/figure3.png" alt="Blocks">
+<center> Figure 3. Blocks. </center>
+
+
+<h2 id="textual-input-language">Textual Input Language</h2>
+
+
+<p>The players (we'll simply call them <em>Red</em> and <em>Blue</em>) can each be either
+a manual player, entering moves as input, or  an automated player
+(we'll call it an
+<em>AI</em>). Manual players
+can talk to the program using either a textual interface,
+described in this section, or (for extra credit) a GUI.</p>
+
+<p>Your program should respond to the following textual commands (you may
+add others).  There is one command per line, but otherwise, whitespace
+may precede and follow command names and operands freely.  Empty lines
+have no effect, and everything from a <code>#</code> character to the end
+of a line is ignored as a comment.</p>
+
+
+<h2 id="the-commands">The Commands:</h2>
+
+
+
+<h3 id="starting-and-ending-games">Starting and Ending Games</h3>
+
+
+<ul>
+  <li><strong><code>new</code></strong>: Abandons the current game (if one is in progress),
+  clears the board to its initial configuration,
+  and starts a new game.</li>
+  <li><strong><code>quit</code></strong>: Abandons any current game
+  and exits the program.  The end of input has
+  the same effect.</li>
+</ul>
+
+
+<h3 id="commands-to-set-parameters">Commands to Set Parameters</h3>
+
+<p>The following commands set various game
+parameters.</p>
+
+<ul>
+  <li><strong><code>auto &lt;COLOR&gt;</code></strong>: Sets up the program so that player <strong><em>C</em></strong> (Red or Blue)
+  is an AI.  By default, and after a <code>clear</code> command,
+  Red is a manual player and Blue is an AI.
+  Thus, the command <code>auto Red</code> (without any other specification for Blue) 
+  causes both Red and Blue to be AIs, and
+  the machine will play a game against itself.</li>
+  <li><strong><code>manual &lt;COLOR&gt;</code></strong>: Sets up the program so that player <strong><em>C</em></strong> (Red or Blue)
+  is a manual player.  Thus, the command <code>manual Blue</code> causes both Red
+  and Blue to be manual players, if ran immediately after a <code>clear()</code> call or 
+  at the beginning of the game. The two players would then presumably alternate 
+  entering moves on a terminal).</li>
+  <li><strong><code>block CR</code></strong>: Sets a block at square <strong><em>CR</em></strong> (e.g. <code>block a1</code>) and all 
+  reflections of that square around the middle row and middle column,
+  as described in
+  <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#blocks">Blocks</a>. It is an error to
+  place a block (or one of its reflections) on a previously set up piece.
+  Blocks may not be placed after a piece move, until the board is
+  cleared again.
+  In case of any errors,
+  the command has no effect.</li>
+  <li><strong><code>seed N</code></strong>:  If your program's AIs
+  use pseudo-random numbers to choose moves, this command
+  sets the random seed to <strong><em>N</em></strong> (a long integer).  This
+  command has no effect if there is no random component to
+  your automated players (or if you don't use them in a
+  particular game).  It doesn't matter exactly how you
+  use <em>N</em> as long as your automated player(s) behave(s)
+  identically in response to any given sequence of moves.
+  In the absence of a <code>seed</code> command, do what you want to
+  seed your generator.</li>
+</ul>
+
+
+<h3 id="entering-and-undoing-moves">Entering and Undoing Moves</h3>
+
+<p>The first and then every other move is for the red
+player, the second and then every other is for blue, and the normal legality
+rules apply to all moves.</p>
+
+<ul>
+  <li><strong><code>c0r0-c1r1</code></strong>: Makes a move for the current player from location <code>(c0, r0)</code>
+  to location <code>(c1, r1)</code>. This should automatically detect if the move was a jump
+  or an extend and behave accordingly (i.e. creating a new piece if the move was an
+  extend or moving an existing piece if it was a jump).</li>
+  <li><strong><code>undo</code></strong>:  Undoes the last move made (if there was one) and, if that makes
+  it an automated player's turn, undo a second move as well.</li>
+</ul>
+
+<p>Your program must reject illegal moves from any player (they have no effect
+on the board; the
+program should tell the user that there is an error and request
+another move). An AI must not make illegal moves.</p>
+
+
+<h3 id="miscellaneous-commands">Miscellaneous Commands</h3>
+
+
+<ul>
+  <li><strong><code>help</code></strong> Print a brief summary of the commands.</li>
+  <li><p><strong><code>dump</code></strong> This command is especially for testing and debugging.
+  It prints the board out in <em>exactly</em> the following format:</p>
+
+<pre><code class="hljs">===
+  r - - - - - b
+  - - - - - - -
+  - - X - X - -
+  - - - - - - -
+  - - X - X - -
+  - - - - - - -
+  b - - - - - r
+===</code></pre>
+
+  <p>Here, <code>-</code> indicates an empty square,  <code>r</code> indicates a
+  red square, <code>b</code> indicates a blue square, and <code>X</code> indicates
+  a block.  Don't use  <code>===</code> markers anywhere else in your
+  output.  This gives the autograder a way to determine the state of
+  your game board at any point.
+  It does not change any of the state of the program.</p></li>
+</ul>
+
+
+<h3 id="optional-helpful-commands-to-add">Optional (Helpful) Commands To Add</h3>
+
+
+<p>You <strong><em>might</em></strong> (optionally) consider a couple of other useful commands that
+you will find in the staff solution. These may be useful in debugging and
+improving the overall experience of the game:</p>
+
+<ul>
+  <li><strong><code>board</code></strong> Prints out a board in something nicer than the dump format.
+  The staff's version, for example, prints row and column designations along
+  the sides of the board.</li>
+  <li><strong><code>verbose</code></strong> Causes the board to get printed (as for <strong>board</strong>) after
+  each move.</li>
+  <li><strong><code>quiet</code></strong> Turns off verbose mode, so that the board no longer gets
+  printed after each move.</li>
+</ul>
+
+
+<h2 id="output">Output</h2>
+
+
+<p>When either player enters a winning move, the program
+should print one of the lines</p>
+
+<pre><code class="hljs"> * Red wins.
+ * Blue wins.
+ * Draw.</code></pre>
+
+<p>as appropriate.  Use <em>exactly</em> those phrases, alone on their line.
+Don't use these phrases in any other situation.</p>
+
+<p>Whenever a player is an AI, it should print out each move that it makes, using
+one of the formats</p>
+
+<pre><code class="hljs"> * Red moves -.
+ * Blue moves -.
+ * Red moves C0R0-C1R1.
+ * Blue moves C0R0-C1R1.</code></pre>
+
+<p>(replacing <code>C0R0-C1R1</code> with an actual move, of course.) Again, use <em>exactly</em>
+those phrases, alone on their line.</p>
+
+<p>Other than this, you may produce any additional user-friendly output
+you choose, subject to a few restrictions:</p>
+
+<ul>
+  <li>Do not use the "<code>===</code>" marker except in the specified output from
+  the <code>dump</code> command.</li>
+  <li>Do not output any lines containing the words "passes", "wins", "Draw",
+  or "moves", except in the specified cases described above.</li>
+</ul>
+
+
+<h2 id="running-the-program">Running the Program</h2>
+
+<p>As usual, you'll run the program with the command</p>
+
+<pre><code class="hljs">java -ea ataxx.Main</code></pre>
+
+<p>Your AIs must make only legal moves. They are required to be somewhat smart:
+they should be able to find a forced win that is within
+four moves of the current position. A forced win is a situation where you 
+maneuver the opponent into a position in which they have no choice other than
+to make losing moves; in other words, you <em>force</em> your opponent into losing
+the game. Your AI should be able to look up to 4 moves ahead and find a forced
+win, if one is available. Finally, there will be an (optional)
+tournament at the end of the project so that you can challenge your AI against 
+AIs that other 61B students came up with!</p>
+
+<p>We've provided an executable <code>staff-ataxx</code> in <code>cs61b-software</code>, which allows
+you to run the staff's solution and AI. 
+You can run <code>staff-ataxx</code> as follows:</p>
+
+<pre><code class="hljs">staff-ataxx</code></pre>
+
+<p>After running the above line, you can begin entering the <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#textual-input-language">textual input commands</a>
+in the terminal to play the game.
+If you'd like to run the staff solution with the GUI enabled, you can use:</p>
+
+<pre><code class="hljs">staff-ataxx --display</code></pre>
+
+<p>To get this executable, <code>cd</code> into your <code>cs61b-software</code> directory and run</p>
+
+<pre><code class="hljs">git pull origin master</code></pre>
+
+<p>Be aware, however, that the <code>staff-ataxx</code> program
+<strong><em>does not</em></strong> define what you are supposed to do; this document does.
+If you find a discrepancy between this specification and our program, <em>tell us</em>.
+Please don't assume that our program defines how your program is supposed to work.</p>
+
+
+<h2 id="testing">Testing</h2>
+
+<p>Check out these testing videos for some explanations about the Ataxx testing framework!</p>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=wlhssAg7d-M">Unit Testing</a></li>
+  <li><a href="https://www.youtube.com/watch?v=fDOKU6uQbYo">Acceptance Testing</a></li>
+</ul>
+
+<p>As with Projects 0 and 1, the command</p>
+
+<pre><code class="hljs">make unit</code></pre>
+
+<p>will run all the <em>unit tests</em>, and the command</p>
+
+<pre><code class="hljs">make acceptance</code></pre>
+
+<p>will run all the <em>acceptance tests</em>. If you try this on
+the skeleton, you'll see that, unsurprisingly, it fails all these tests, giving
+you an indication of what needs to be changed. <strong>The unit and acceptance
+tests provided with the skeleton are nowhere near comprehensive.</strong>
+Passing the unit and acceptance tests included with the skeleton is not an
+indication that your code is correct, you should write additional
+tests to ensure correctness. <strong>Use the IntelliJ
+debugger to assist in passing these test cases.</strong></p>
+
+<p>Usually, you will want to use the command <code>make check</code> for testing,
+which runs both the unit and acceptance tests.
+<strong>By the time you finish the project,
+<code>make check</code> should report no errors.</strong> If your
+python command is <code>python</code> rather than <code>python3</code> you will need to use
+<code>make PYTHON=python check</code> to run the acceptance tests.</p>
+
+<p><strong>Important:</strong> For information on the testing commands you can use in an acceptance test,
+refer to the comments in the <code>test-ataxx</code> file that was given as part of
+the skeleton.</p>
+
+<p>Furthermore, to run individual acceptance tests, you can run the following
+from the <code>proj2</code> directory:</p>
+
+<pre><code class="hljs python">python3 testing/tester.py --show=<span class="hljs-number">1</span> testing/&lt;testX&gt;.<span class="hljs-keyword">in</span></code></pre>
+
+<p>where <code>&lt;testX&gt;.in</code> is an input file (e.g <code>test01-1.in</code>). The <code>--show=1</code> option
+here shows error output for the test that you are running. Finally, you can also run
+the above command with the <code>--keep</code> option:</p>
+
+<pre><code class="hljs python">python3 testing/tester.py --show=<span class="hljs-number">1</span> --keep testing/&lt;testX&gt;.<span class="hljs-keyword">in</span></code></pre>
+
+<p>This will create two new files in the <code>proj2</code> directory:</p>
+
+<ul>
+  <li><code>&lt;testX&gt;.out</code>: This file contains the output generated by the input file that you provided to the test.</li>
+  <li><code>&lt;testX&gt;.err</code>: This file contains any errors/exceptions that were thrown during the execution of this test.</li>
+</ul>
+
+<p>Acceptance tests used in <code>make check</code> are stored under the
+<code>proj2/testing</code> folder.  If you would like to run an acceptance test
+in IntelliJ so that you can use the debugger, use the following steps:</p>
+
+<ol>
+  <li>Navigate to the Main file in IntelliJ and open it.</li>
+  <li>Click on Run &gt; Edit Configurations...</li>
+  <li>In the left sidebar of the pop-up window, under "Application", select Main.</li>
+  <li>For "Program arguments", put in <code>testing/&lt;test_file&gt;</code> where
+  <code>&lt;test_file&gt;</code> is the name of the file of the acceptance test you would like to run.</li>
+</ol>
+
+<p>For example, if you would like to run acceptance test <code>test01-1.in</code>,
+you should have <code>testing/test01-1.in</code> as your program arguments.
+Now you can click Run &gt; Run 'Main' or Run &gt; Debug 'Main' to run and use the
+debugger on the acceptance tests. Remember to set a breakpoint if you're debugging!</p>
+
+<p>Some tests play two programs against each other (the tests with a <code>testX-2.in</code> file).
+When running these tests, you'll have to pass both files as arguments.</p>
+
+
+<h2 id="your-task">Your Task</h2>
+
+<p>Your job is to write a program that allows you to play a game of Ataxx, and also
+an AI that you can play the game against. This will involve editing the functions/locations
+labeled <code>FIXME</code> in <code>Move.java</code>, <code>Board.java</code>, and <code>AI.java</code>.</p>
+
+<p>To obtain the skeleton files (and set up an initial entry for your
+project in the repository), you can use the usual command sequence:</p>
+
+<pre><code class="hljs java">git fetch shared
+git merge shared/proj2 -m <span class="hljs-string">"Get proj2 skeleton"</span></code></pre>
+
+<p>from your Git working directory.  Should we update the skeleton, you can use
+exactly the same sequence to update your project with the same changes.</p>
+
+<p>Be sure to include tests of your program (this is part of the
+grade, see <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#grading-details">Grading Details</a>).  The makefile we provide has
+convenient targets for running unit and acceptance tests, and a
+Python testing script for acceptance testing.  See the <code>testing/README</code>
+file for a description of the specification language used by this script.
+Our skeleton directory
+contains some trivial tests, but  <em>these do not constitute
+an adequate set of tests!</em>
+Make up your tests ahead of time and update your makefile to run them.
+To help with testing and debugging, we will provide our own version of
+the  program, so that you can test your program against ours (we'll be
+on the lookout for illegal moves).   More details will follow.</p>
+
+<p>Your AI should be able to find a forced win that is within
+four moves of a given position.  It must not use more than 10 seconds to
+make any given move.</p>
+
+
+<h2 id="some-notes-and-hints-about-the-skeleton">Some Notes and Hints About the Skeleton</h2>
+
+
+<ol>
+  <li>The <code>_notifier</code> instance variable and the <code>announce()</code> method that
+  you see used
+  throughout <code>Board.java</code> is a mechanism for the GUI (see the <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj2/index.html#extra-credit">Extra
+  Credit</a>
+  section). If you aren't working on the GUI, you can ignore this
+  mechanism entirely.</li>
+  <li>Our usage of the <code>EXTENDED_SIDE</code> class constant may confuse you; if
+  you don't understand
+  the motivation for it, please read the lengthy comment above the
+  <code>_board</code> instance variable
+  at the bottom of <code>Board.java</code>.</li>
+  <li>The <code>unrecordedSet()</code> method in <code>Board.java</code> is a way for us to set
+  the PieceColor of a square
+  without marking the action as a move that can be undone. The <code>set()</code> method
+  is supposed to
+  set a square and mark the move as "undoable"; this may pose a
+  problem when we'd like to make certain changes to the board that aren't 
+  supposed to be undone by a player.</li>
+  <li>You shouldn't be calling the Move constructor (it's private!) whenever you 
+  need to create a new Move object; instead, use the factory static method 
+  <code>Move.move()</code> to get a Move object containing the move that you'd like to
+  represent. This method is optimized (see the Javadoc comment above the method)
+  in order for your AIs to run even faster, so you should use it whenever needed.</li>
+  <li><p>You'll likely find that you'll need to do some character arithmetic
+  while completing this project. Since chars are just integers underneath the
+  hood, we can do addition with them as follows:</p>
+
+<pre><code class="hljs python">   <span class="hljs-string">'a'</span> + <span class="hljs-number">3</span> = <span class="hljs-string">'d'</span>
+   <span class="hljs-string">'g'</span> - <span class="hljs-number">4</span> = <span class="hljs-string">'c'</span>
+   <span class="hljs-string">'1'</span> + <span class="hljs-number">5</span> = <span class="hljs-string">'6'</span>
+   <span class="hljs-string">'b'</span>++ <span class="hljs-keyword">is</span> equivalent to <span class="hljs-string">'c'</span></code></pre></li>
+  <li><p>"Linearized indices" is just a fancy way of stating that we
+  converted the standard 2D array
+  indexing with a row and column index into 1D array indexing. As a
+  visual example, in the 3x3 table
+  below we translate square (0, 0) to index 0, square (1, 0) to index
+  1, square (2, 0) to index 2, so on
+  and so forth. Then, we can store all the squares in the Board as a
+  1D array and refer to each square by its
+  new 1D index.</p>
+
+  <table>
+    <tbody><tr>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+    </tr>
+  </tbody></table></li>
+</ol>
+
+
+<h2 id="advice">Advice</h2>
+
+
+<p>You are not required to use any part of our skeleton as long as your program
+behaves as described in this document. However, don't throw anything away
+without understanding it; there's something to learn from our code
+even if you choose not to use it.</p>
+
+<p>We suggest working first on the classes <code>Move</code> and <code>Board</code>, which allow you
+to make moves and interact with the board.
+Then you can tackle writing a machine player in <code>AI.java</code>.
+For the AI, start with something really simple (perhaps choosing a legal move at
+random) and introduce strategy only when you get everything working
+properly. Random play will not reliably satisfy the requirement of finding
+forced wins, so you will eventually have to do a real search.</p>
+
+
+<h2 id="checkpoint-grading-details">Checkpoint Grading Details</h2>
+
+
+<p>By <strong>Friday, 3/18 at 11:59PM</strong> you must have
+completed the following deliverables in order to receive <strong>4 points</strong>.
+The checkpoint <em>is not</em> extra credit, and will be factored
+into your final project grade.</p>
+
+<ol>
+  <li>Pass all unit tests in <code>MoveTest.java</code>.</li>
+  <li>Pass all unit tests in <code>BoardTest.java</code>.</li>
+  <li>Pass acceptance tests 1-4 (a correct Move and Board
+  implementation will be able to pass these 4).</li>
+</ol>
+
+<p>You will be able to 
+submit to the checkpoint autograder by committing
+it and tagging it as follows
+<strong>(the tag is proj2a not proj2)</strong>:</p>
+
+<pre><code class="hljs makefile">git tag proj2a-0     <span class="hljs-comment"># Or proj2a-1, etc.</span>
+git push
+git push --tags</code></pre>
+
+<p>On release, you will only be able to submit to the checkpoint 
+autograder once every 6 hours, and full error logs will be 
+displayed. Starting Monday 3/14, you will be able to submit 
+once every 3 hours. Finally, starting at 9:00PM PST on 3/18, 
+you will be able to submit as many times as you want.</p>
+
+
+<h2 id="grading-details">Grading Details</h2>
+
+<p>Project 2 is due 4/1 at 11:59 PM PT. The project is
+worth 24 points (the total score for this project is 28 points,
+with the checkpoint included). Your score on Gradescope will be your final
+score for the assignment.</p>
+
+<p>The release date of the full Project 2 autograder will be announced soon.
+The tests included in the skeleton code
+<strong>are not</strong> the full suite of tests that will be run on your submission.
+The intention is that you write tests for your code, and do not rely on
+autograder submissions to debug problems. To encourage this, you will only
+be able to submit to the autograder once every 6 hours, and limited error
+output will be displayed.</p>
+
+<p>Starting 3/18, the autograder will show more information about why
+you are failing some tests, and what the tests that you are failing contain.
+Starting on 4/1, you will be able to submit to the grader once every 3 hours,
+and in the last hour before the deadline, you will be able to submit 4 times
+to account for any technical difficulties or Git issues. Starting 4/2 (this
+is after the official project deadline!), you will be able to submit as many 
+times as you want.</p>
+
+<p>As a warning, <strong>you will not be able to complete the project if you wait to
+start or test your code 3 days before the deadline</strong> You should plan to start early, 
+and write your own extensive tests for this assignment. You will be required to 
+write and pass at least 1 extra acceptance test on top of the ones given to you.</p>
+
+
+<h2 id="extra-credit">Extra Credit</h2>
+
+
+<p>Due to high demand for course resources, we 
+will not provide help in Office Hours or answer Gitbugs 
+for questions on the extra credit.</p>
+
+<p>Extra credit grading details will be released on Piazza 
+closer to the assignment deadline.</p>
+
+<p>For extra credit, you
+can provide a GUI (after all, what computer board game is complete
+without a GUI?).  By default, the command shown above should <em>not</em> use
+a GUI.  Instead, you indicate explicitly that you want it:</p>
+
+<pre><code class="hljs">java -ea ataxx.Main --display</code></pre>
+
+<p>If you choose not
+to implement a GUI, make sure that your program terminates with an
+error exit code of 2
+when given the <code>--display</code> parameter.
+Otherwise, your program should exit
+with exit code 0, as usual, even if someone entered invalid commands during a
+session (and simply print
+error messages in response to the errors).</p>
+
+<p>We do <strong>not</strong> recommend doing the extra credit before finishing the main
+part of the assignment.</p>
+    </main></div>
+
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: STIXSizeOneSym, sans-serif;"></div></div></body></html>
