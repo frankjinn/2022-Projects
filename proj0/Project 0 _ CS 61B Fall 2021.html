@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<!-- saved from url=(0074)https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Project 0 | CS 61B Fall 2021</title>
+    
+
+    
+
+
+    <link href="./Project 0 _ CS 61B Fall 2021_files/css" rel="stylesheet" type="text/css">
+    <link href="./Project 0 _ CS 61B Fall 2021_files/common.css" rel="stylesheet" type="text/css">
+    <link href="./Project 0 _ CS 61B Fall 2021_files/lab.css" rel="stylesheet" type="text/css">
+    <link href="./Project 0 _ CS 61B Fall 2021_files/tomorrow.css" rel="stylesheet" type="text/css">
+    
+    <link href="./Project 0 _ CS 61B Fall 2021_files/proj.css" rel="stylesheet" type="text/css">
+
+    <script src="./Project 0 _ CS 61B Fall 2021_files/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <script src="./Project 0 _ CS 61B Fall 2021_files/highlight.pack.js" type="text/javascript"></script>
+    <script src="./Project 0 _ CS 61B Fall 2021_files/sidebar.js" type="text/javascript"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script type="text/x-mathjax-config;executed=true">
+MathJax.Hub.Config({
+
+    tex2jax: {inlineMath: [["$", "$"]]}
+})
+
+</script>
+<script type="text/javascript" src="./Project 0 _ CS 61B Fall 2021_files/MathJax.js"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax_LineBox {display: table!important}
+.MathJax_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Blank; src: url('about:blank')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+    <div class="navbar-top"><div id="navitems">
+        <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/index.html"><div class="navitem">Main</div></a>
+        <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/about.html"><div class="navitem">Course Info</div></a>
+        <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/staff.html"><div class="navitem">Staff</div></a>
+        <!-- <a href="../../../assign.html"><div class="navitem">Assignments</div></a> -->
+        <!-- <a href="https://inst.eecs.berkeley.edu/~cs61b/sp20/screencasts" target="_blank"><div class="navitem">Screencasts</div></a> -->
+        <a href="https://beacon.datastructur.es/" target="_blank"><div class="navitem">Beacon</div></a>
+        <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/resources.html"><div class="navitem">Resources</div></a>
+        <a href="https://piazza.com/class/jkx2gta66436jq"><div class="navitem">Piazza</div></a>
+    </div></div>
+    <div id="sidebar">
+        <div id="sidebar-content">
+            <h3>Navigation</h3>
+            <ul>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#due-friday-2-11-11-59-pm-pt">Due: Friday, 2/11 11:59 PM PT</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#navigation">Navigation</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#useful-links-and-updates">Useful Links and Updates</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#introduction">Introduction</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#the-puzzle">The Puzzle</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#play-time">Play Time</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#text-language">Text Language</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#program-design">Program Design</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#getting-started">Getting Started</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#detailed-overview-of-the-skeleton">Detailed Overview of the Skeleton</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#piece">Piece</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#model">Model</a></li>
+  <ul>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#_cells"><code>_cells</code></a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#_hand"><code>_hand</code></a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#_score-and-_streaklength"><code>_score</code> and <code>_streakLength</code></a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#_history"><code>_history</code></a></li>
+  </ul>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#methods-of-model">Methods of Model</a></li>
+  <ul>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#the-constructors">The Constructors</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#get-int-row-int-col">get(int row, int col)</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#placeable-piece-piece-int-row-int-col-and-placeable-piece-piece">placeable(Piece piece, int row, int col) and placeable(Piece piece)</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#place-piece-piece-int-row-int-col">place(Piece piece, int row, int col)</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#the-hand-methods-handsize-handused-piece-int-k-clearhand-and-deal-piece-piece">The Hand Methods: handSize(), handUsed(), piece(int k), clearHand(), and deal(Piece piece)</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#place-int-k-int-row-int-col">place(int k, int row, int col)</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#rowcolumncounts">rowColumnCounts()</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#scoreclearedlines-int-nrows-int-ncols">scoreClearedLines(int nrows, int ncols)</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#clearfilledlines">clearFilledLines()</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#roundover">roundOver()</a></li>
+    <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#undo-and-redo">undo() and redo()</a></li>
+  </ul>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#puzzlegenerator">PuzzleGenerator</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#instrumentation-and-testing">Instrumentation and Testing</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#running-acceptance-tests-in-intellij">Running Acceptance Tests in IntelliJ</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#submission-and-version-control">Submission and Version Control</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#grading-details">Grading Details</a></li>
+</ul>
+        </div>
+    </div>
+    <div id="content-container" class="content-spacer"><main id="content">
+        <header class="title">Project 0: Blocks</header>
+        
+<script type="text/x-mathjax-config;executed=true">
+	  MathJax.Hub.Config({
+	    tex2jax: {inlineMath: [["$","$"]]}
+	  });
+	</script>
+	<script src="./Project 0 _ CS 61B Fall 2021_files/MathJax(1).js" id="">
+	</script>
+
+
+<h2 id="due-friday-2-11-11-59-pm-pt">Due: Friday, 2/11 11:59 PM PT</h2>
+
+
+<!--*Please see <a href="https://piazza.com/class/xxx">@xxx</a> for updates and changes to the assignment.*-->
+
+
+<h2 id="navigation">Navigation</h2>
+
+
+<ul>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#useful-links">Useful Links</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#introduction">Introduction</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#the-puzzle">The Puzzle</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#play-time">Play Time</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#program-design">Program Design</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#instrumentation-and-testing">Instrumentation and Testing</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#discussion">Discussion</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#submission-and-version-control">Submission and Version Control</a></li>
+</ul>
+
+
+<h2 id="useful-links-and-updates">Useful Links and Updates</h2>
+
+
+<ul>
+  <li><strong>Update 2/4</strong>: The IntelliJ Style checker plugin is <strong>inconsistent</strong> with the
+  style checker used on the autograder. To correctly check style
+  locally, use <code>make style</code>.</li>
+  <li><a href="https://drive.google.com/file/d/1I__OZx4mbhxaBNebMxVI8ThUTkvE-Ixq/view">Getting Started Video</a></li>
+  <li><a href="https://youtu.be/TRnHHCNmLts">Testing Tips 1: Unit Tests</a></li>
+  <li><a href="https://youtu.be/8cgXFtl0dEw">Testing Tips 2: Acceptance Tests</a></li>
+  <li><a href="https://docs.google.com/presentation/d/1HaGqpjIpzZKtdHrrwiY9NkqNpmFKTQy7tjfjwH2XwbI/edit?usp=sharing">Testing Tips Slides</a></li>
+  <li><a href="https://docs.google.com/presentation/d/16qwD9j-7SqhOs616SZh6LJShpYCEyj1cnM09-4XL4LY/edit#slide=id.g1135ac5a21d_0_176">Placeable Slides</a></li>
+</ul>
+
+
+<h2 id="introduction">Introduction</h2>
+
+
+<p>This initial programming assignment is intended to give you a chance
+to get familiar with Java and the various tools used in the course.
+This project is smaller in scale compared to the other three projects
+you will complete this semester. However, you may still find it
+challenging and we encourage you to start as early as possible.
+You should have completed <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/lab/lab1.html">Lab 1</a> and
+<a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/lab/lab2.html">Lab 2</a> before starting this
+assignment as they contain important setup steps.</p>
+
+<p>We will be grading <em>solely</em> on whether you manage to get your program
+to work (according to our tests, which are provided to you in the
+skeleton) and to hand in the assigned pieces. There is a slight
+stylistic component: the submission and grading machinery require that
+your program pass a mechanized style check (<code>style61b</code>), which mainly
+checks for formatting and the presence of comments in the proper
+places.  See <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/docs/style-guide.html">the style61b guide</a> for a description of the style it
+enforces and how to run it yourself. As usual in CS 61B, the score you
+receive on Gradescope will be your final score on this assignment.</p>
+
+<p>First, make sure that everything in your repository is properly updated and
+checked in.  Before you start, the command</p>
+
+<pre><code class="hljs">cd  ~/repo
+git status</code></pre>
+
+<p>should report that the directory is clean and that there are no untracked files
+that should be added and committed.  <em>Never</em> start a new assignment without doing
+this.</p>
+
+<p>To obtain the skeleton files (and set up an initial entry for your project in
+the repository), you can use the command sequence</p>
+
+<pre><code class="hljs java">git fetch shared
+git merge shared/proj0 -m <span class="hljs-string">"Get proj0 skeleton"</span>
+git push</code></pre>
+
+<p>from your repo directory. Should we update the skeleton, you can use the
+same sequence (with an appropriate change in the <code>-m</code> parameter) to update your
+project with the same changes.</p>
+
+
+<h2 id="the-puzzle">The Puzzle</h2>
+
+
+<p>The Blocks puzzle in this project has numerous variations available
+on the web and in mobile apps (for example, you can play an <a href="https://www.cbc.ca/kidscbc2/content/games/blocks-puzzle/index.html">online Blocks Puzzle</a>).
+You are presented with a grid of square cells
+(initially empty) and a set of some number of pieces formed from configurations
+of square, cell-sized blocks (we'll call these pieces <em>the hand</em>),
+which you try to arrange in order to cover empty cells of the grid.  After each
+piece is placed, any rows and columns of the grid that have become completely
+filled are cleared.
+After you
+place all the pieces in the hand, it is refilled with the same number of pieces
+as before.
+Play continues until none of the pieces in the hand can fit anywhere on
+the board.</p>
+
+<p>For example, consider the board on the left below.  The middle piece of the hand
+(shown below the board) may be placed at either of the places indicated by the
+pink-shaded areas.  If we choose to place its reference point on
+the square (1,0) (row 1,
+column 0), we get the middle board. (The <em>reference point</em> of a piece
+refers to the upper left corner of the smallest rectangle that contains
+the piece.  Depending on the shape of the piece, it may or may not actually be
+filled.  For example, the first (middle) piece we placed had its reference
+point filled; the second (leftmost) piece did not.)
+If we then place the leftmost piece at the
+pink-shaded position on that board (so that its reference point is at row 2, column 5), we will fill all of row 2, which will then
+be cleared to yield the board on the right.</p>
+
+<p><img src="./Project 0 _ CS 61B Fall 2021_files/figure1.png" alt="Sample Boards and Moves"></p>
+
+<p>By default, the board consists of 64 cells in an 8x8 grid, and the hand contains three pieces at a time.
+Your program will be able to change these parameters to make boards and hands
+of varying sizes.</p>
+
+<p><strong>Scoring:</strong></p>
+
+<ul>
+  <li>One point for each cell that gets filled by a piece</li>
+  <li>One point for each cell that then gets cleared</li>
+  <li>Bonus for clearing at least one row or column.</li>
+  <li>The bonus is the total number of cells in
+  all cleared rows, plus the total number of cells in all cleared columns,
+  then multiplied by the number of consecutive moves in
+  which at least one line or column was cleared.</li>
+</ul>
+
+<p>When using the GUI (Graphical User Interface), scores appear above the board,
+as shown below.</p>
+
+<p><img src="./Project 0 _ CS 61B Fall 2021_files/figure2.png" alt="Scoring Examples"></p>
+
+<p>For example, assume that in the board at the left above, the previous move
+added a piece without clearing any squares.
+Inserting the rightmost piece in
+the hand at the position indicated by the pink shading yields the middle
+board.  The piece added contained 4 cells and caused the clearing of one row
+and one column, which cleared 15 cells (the cell at (0,2) is counted only
+once).  Since row 0 and column 2 were cleared (both with 8 cells), we get
+a bonus of 16 (this time, square (0, 2) <strong><em>is</em></strong> counted twice).
+Since we assume that the previous move did not result in clearing, the number
+of consecutive moves in which a row or column is cleared is 1 at this point,
+so that placing this piece results in a score of <span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mn&gt;4&lt;/mn&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;15&lt;/mn&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mn&gt;16&lt;/mn&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;35&lt;/mn&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 10.732em; display: inline-block;"><span style="display: inline-block; position: relative; width: 8.909em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.669em, 1008.86em, 2.711em, -999.997em); top: -2.497em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mn" id="MathJax-Span-3" style="font-family: STIXGeneral-Regular;">4</span><span class="mo" id="MathJax-Span-4" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">+</span><span class="mn" id="MathJax-Span-5" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">15</span><span class="mo" id="MathJax-Span-6" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">+</span><span class="mn" id="MathJax-Span-7" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">1</span><span class="mo" id="MathJax-Span-8" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">×</span><span class="mn" id="MathJax-Span-9" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">16</span><span class="mo" id="MathJax-Span-10" style="font-family: STIXGeneral-Regular; padding-left: 0.315em;">=</span><span class="mn" id="MathJax-Span-11" style="font-family: STIXGeneral-Regular; padding-left: 0.315em;">35</span></span><span style="display: inline-block; width: 0px; height: 2.503em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.122em; border-left: 0px solid; width: 0px; height: 1.003em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>4</mn><mo>+</mo><mn>15</mn><mo>+</mo><mn>1</mn><mo>×</mo><mn>16</mn><mo>=</mo><mn>35</mn></math></span></span><script type="math/tex" id="MathJax-Element-1">4+15+1\times16=35</script>, and the
+score for the round increases to 185.  Now we add the indicated piece to the
+middle board at the pink-shaded position. This adds 3 cells and then clears
+8 (one row).  Since with this move,
+the number of consecutive moves that clear a row or column is 2, this leads to
+an additional <span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-2-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;8&lt;/mn&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mn&gt;8&lt;/mn&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;27&lt;/mn&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-12" style="width: 9.534em; display: inline-block;"><span style="display: inline-block; position: relative; width: 7.919em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.669em, 1007.87em, 2.711em, -999.997em); top: -2.497em; left: 0em;"><span class="mrow" id="MathJax-Span-13"><span class="mn" id="MathJax-Span-14" style="font-family: STIXGeneral-Regular;">3</span><span class="mo" id="MathJax-Span-15" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">+</span><span class="mn" id="MathJax-Span-16" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">8</span><span class="mo" id="MathJax-Span-17" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">+</span><span class="mn" id="MathJax-Span-18" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">2</span><span class="mo" id="MathJax-Span-19" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">×</span><span class="mn" id="MathJax-Span-20" style="font-family: STIXGeneral-Regular; padding-left: 0.263em;">8</span><span class="mo" id="MathJax-Span-21" style="font-family: STIXGeneral-Regular; padding-left: 0.315em;">=</span><span class="mn" id="MathJax-Span-22" style="font-family: STIXGeneral-Regular; padding-left: 0.315em;">27</span></span><span style="display: inline-block; width: 0px; height: 2.503em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.122em; border-left: 0px solid; width: 0px; height: 1.003em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>3</mn><mo>+</mo><mn>8</mn><mo>+</mo><mn>2</mn><mo>×</mo><mn>8</mn><mo>=</mo><mn>27</mn></math></span></span><script type="math/tex" id="MathJax-Element-2">3 + 8 + 2\times8=27</script> points, bringing the total for the round to
+212.</p>
+
+
+<h2 id="play-time">Play Time</h2>
+
+
+<p>The first step in tackling the project is to play the puzzle. That is,
+you should familiarize yourself with what the final product should
+look like. To execute your own version of the program (after compiling
+it), use the command</p>
+
+<pre><code class="hljs">java -ea blocks.Main</code></pre>
+
+<p>from within your proj0 directory, or run it in IntelliJ.
+To compile your program, use the command</p>
+
+<pre><code class="hljs">make</code></pre>
+
+<p>in the <code>proj0</code> or <code>proj0/blocks</code> directories. In order to
+use make, you'll need to install it. Follow <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/docs/make-install.html">the instructions
+here</a> to do so.  You may have already
+done so in HW 1.
+At first, of course, this program, being
+incomplete, will not really work. So, you can play the game using
+the staff's version of the program, which is stored as an executable
+in the <code>cs61b-software</code> directory:</p>
+
+<pre><code class="hljs">  cd $HOME/cs61b-software/bin
+  staff-blocks</code></pre>
+
+<p>If the <code>staff-blocks</code> command does not work, try running <code>./staff-blocks</code>
+instead. Additionally, if the <code>staff-blocks</code> binary is not in your
+<code>cs61b-software/bin</code> folder, please run <code>git pull</code> from your <code>cs61b-software</code>
+directory to get the most up-to-date files.</p>
+
+<p>It takes the same options as your project (see <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#instrumentation-and-testing">Instrumentation and
+Testing</a>).
+The <code>staff-blocks</code> command starts our version of Blocks.
+The <code>--log</code> option will output
+information about the program's execution.</p>
+
+<p>If you want to always get the same hands, you can use the seed option
+as in the following example:</p>
+
+<pre><code class="hljs">staff-blocks --seed=42 --log</code></pre>
+
+<p>The same seed number produces the same random sequence, which will
+make the puzzle generated deterministic (you will get the same
+pieces each time). This way bugs and other behavior can be
+reproduced.</p>
+
+
+<h2 id="text-language">Text Language</h2>
+
+
+<p>Most users will want to use interactive graphical input and output
+while playing this puzzle.  However, in the interests of making testing easy,
+we've organized the program to primarly use text as the input.
+The GUI, in fact, actually enters commands derived from mouse clicks and
+dragging by translating them into these same text commands.  The
+acceptance tester we provide also uses these commands.  To get the staff
+program to take text input, start it with</p>
+
+<pre><code class="hljs">staff-blocks --no-display</code></pre>
+
+<p>The available commands are as follows:</p>
+
+<ul>
+  <li><strong>new</strong>: Clear the board, reset the current score to 0, and deal the first
+  hand.</li>
+  <li><strong>set</strong> <em>P</em> <em>R</em> <em>C</em>: Place piece number <em>P</em> from the current hand so that
+  its reference point is at row <em>R</em> and column <em>C</em>.  Pieces of a hand
+  are numbered from 0.  Piece numbers are "sticky", so that the piece that
+  was originally the rightmost piece continues to have index 2, even when
+  pieces 0 and 1 are removed from the hand and played to the board.</li>
+  <li><strong>board</strong>: Print a representation of the board.</li>
+  <li><strong>size</strong> <em>NR</em> <em>NC</em> <em>NP</em>: Clear the board and start a new round after first
+  setting boards to have <em>NR</em> rows and <em>NC</em> columns, and setting hands to contain
+  <em>NP</em> pieces.</li>
+  <li><strong>seed</strong> <em>S</em>:  Set the random seed to <em>S</em>.  The seed is used to prime a
+  <em>pseudo-random number generator</em> that drives the selection of pieces for
+  a hand.  Specifying the same seed causes the program to produce the same
+  hands (useful for testing and debugging purposes).</li>
+  <li><strong>undo</strong>: Go back one move.</li>
+  <li><strong>redo</strong>: Redo a previously undone move.</li>
+</ul>
+
+
+<h2 id="program-design">Program Design</h2>
+
+
+<p>The skeleton exhibits a <em>design pattern</em> in common use: the
+Model-View-Controller Pattern (MVC).</p>
+
+<p>The MVC pattern divides our problem into three parts:</p>
+
+<ul>
+  <li>The <em>model</em> represents the subject matter being represented and acted
+  upon. In this case, it incorporates the state of a board and the rules by
+  which it may be modified. Our model resides in the <code>Model</code>  class.</li>
+  <li>A <em>view</em> of the model, which displays the puzzle state to the user.
+  Our view resides in the <code>GUI</code>, <code>BoardWidget</code>, and <code>SoundEffect</code> classes.</li>
+  <li>A <em>controller</em> for the puzzle, which translates user actions into
+  operations on the model.  In our case, it also notifies the view when the
+  model has been modified. Our controller
+  resides mainly in the <code>Controller</code> class, although it also uses the GUI class
+  to read mouse clicks.</li>
+</ul>
+
+<p>Your job for this project is to modify and complete the <code>Model</code>,
+<code>PuzzleGenerator</code>, and <code>Piece</code> classes.  We've marked places
+that need attention with comments containing "<code>FIXME</code>" (the style
+checker will point these out to you should you forget to fix one).
+Don't let that stop you from looking at all the other code in these
+classes; that's actually part of the point of giving you the
+skeleton.  You can learn a great deal about programming by reading
+other people's programs. It is unlikely that you will be able to
+complete the "<code>FIXME</code>"s successfully without understanding the
+majority of the provided code in the aforementioned classes.</p>
+
+<p>Initially, the skeleton contains some dummy code. Running the
+skeleton program actually won't result in anything (it will error),
+so you will have to address some of the <code>FIXME</code>s before actually
+getting to play your own version of the game.</p>
+
+
+<h2 id="getting-started">Getting Started</h2>
+
+
+<p>This project is largely an exercise in reading someone else's program and
+understanding its intent, which is actually a common activity in "real-world"
+programming as well.</p>
+
+<p>You'll see numerous uses of parts of the Java library we haven't
+talked about.  However, you <em>have</em> seen all these data structures in
+Python.  Where Python has lists, Java has arrays, <code>ArrayList</code>,
+<code>ArrayDeque</code>, and <code>LinkedList</code> (among others).  Where Python has
+dictionaries, Java has <code>HashMap</code> and <code>TreeMap</code>.  Where Python has
+sets, Java has <code>HashSet</code>, <code>TreeSet</code>, and <code>BitSet</code>. These and many
+more library classes are all defined in the <a href="https://docs.oracle.com/en/java/javase/13/docs/api/allclasses-index.html">online Java library
+documentation</a>, which should constitute much of your bedtime reading
+for this semester. This said, you won't fully understand these Java
+data structures only by reading about them, but by using the
+documentation along with writing code to use them.</p>
+
+<p>Say, for example, that we wanted to create a list to hold integers.
+You could investigate the <a href="https://docs.oracle.com/javase/10/docs/api/java/util/ArrayList.html">ArrayList Documentation</a>, and find that
+in order to create an empty <code>ArrayList</code> called <code>newList</code>, you would
+write a line of code such as</p>
+
+<pre><code class="hljs java">  ArrayList&lt;Integer&gt; newList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();</code></pre>
+
+<p>If you wanted to add the numbers 1 through 4 to <code>newList</code>, and print
+out whether 4 is in <code>newList</code> you could write:</p>
+
+<pre><code class="hljs java">    newList.add(<span class="hljs-number">1</span>);
+    newList.add(<span class="hljs-number">2</span>);
+    newList.add(<span class="hljs-number">3</span>);
+    newList.add(<span class="hljs-number">4</span>);
+    <span class="hljs-keyword">if</span> (newList.contains(<span class="hljs-number">4</span>)) {
+        System.out.println(<span class="hljs-string">"4 in newList"</span>);
+    } <span class="hljs-keyword">else</span> {
+        System.out.println(<span class="hljs-string">"4 not in newList"</span>);
+    }</code></pre>
+
+<p>We've gone to some pains to provide comments that actually indicate what
+things do (in sharp contrast, I fear, to standard practice these days).  We'd
+like you to get into the habit of doing the same.</p>
+
+<p>Reading and trying to understand these files and comments before
+beginning programming will be well worth the time. Spending up-front
+time before writing code can feel a bit counterintuitive at first. If
+you begin writing code before making an attempt to understand the
+preexisting code, you will likely struggle more. You need not
+understand every line of the given code, but you should strive to
+understand the different objects, their instance variables, what their
+instance methods do, and how the methods relate to one another. The
+comments in line with the methods and instance methods are a great way
+to begin learning about the code.</p>
+
+<p>Before you start working on a particular class, you must read the
+comment above the class to understand the object at hand. Then,
+continue to the bottom of the class to read about its instance
+variables. Finally, read the comments of the methods that were
+provided for you. Only after this exercise you will be truly prepared
+to tackle the first "<code>FIXME</code>".</p>
+
+<p>A note on style: you will see that all instance and static variable
+names are preceded by an underscore. The underscore gives these
+variables no special powers. It is merely a visual signal to the
+programmer that a variable is an instance or static variable of a
+class.</p>
+
+<p>This project makes considerable use of abstraction; the simpler
+functions you write will be instrumental in helping you accomplish
+more complex goals.  Be sure to respect the abstraction barriers to
+minimize the impact of bugs or logical errors in your code.  Further,
+if you find yourself bogged down by the details of a particular
+method, consider pausing to break it down into "helper" functions,
+each performing some coherent piece of the original function (only, as
+a stylistic matter, do give these new functions descriptive names,
+generally avoiding the word "helper" in the name.)</p>
+
+
+<h2 id="detailed-overview-of-the-skeleton">Detailed Overview of the Skeleton</h2>
+
+
+<p>We recommend that you complete the <code>FIXME</code>s in the order specified here.
+Some <code>FIXME</code>s will depend on how you handle the other <code>FIXME</code>s, so you might
+need to go out of this recommended order, or go back to a <code>FIXME</code> that
+you previously handled.</p>
+
+
+<h2 id="piece">Piece</h2>
+
+<p>The <code>Piece</code> class contains the definition for the pieces that the player places
+on the grid. Each Piece is essentially a set of positions that are relative to its
+<em>reference point</em> -- the upper left corner of the smallest rectangle that can
+encompass all of the filled cells of the piece. If this definition is still confusing
+to you, take a moment now to look at some example pieces and find their reference
+points; remember that the reference point of a piece isn't always a
+filled cell!</p>
+
+<p>The only method in <code>Piece.java</code> that will be of use to you is <code>get(int row, int col)</code>,
+which is also the first <code>FIXME</code> that you should fill in.</p>
+
+
+<h2 id="model">Model</h2>
+
+
+<p>The <code>Model</code> class contains the current state of the puzzle board. It is
+responsible for keeping track of what cells are currently filled on the board,
+the player's current hand, the current score of the game, the move history,
+and a few other key components of the game. All this information is presented
+to users (or "clients") of the <code>Model</code> class in the forms of methods that can
+be called (using the <code>myBoard.methodName(...)</code> syntax familiar from Python, C++,
+and other object-oriented languages).</p>
+
+<p>Our problem is to figure out how to represent this information so as to make it
+possible to implement these methods. We represent the information with <em>instance
+variables</em> (generally marked as <code>private</code> in the skeleton; we'll discuss <em>access
+modifiers</em> such as <code>public</code> and <code>private</code> later in the course.) A convention used
+in this course is to give these instance variables names beginning with underscores
+to distinguish them from classes, methods, local variables, and non-private variables
+(mostly symbolic constants in our case).</p>
+
+<p>For this project, we've already provided the necessary representation variables,
+which you should try to understand before implementing things. Of particular importance:</p>
+
+
+<h3 id="_cells"><code>_cells</code></h3>
+
+
+<p>A two-dimensional array of boolean values which all begin as false, signifying an empty board.
+As pieces are added to the board and cells are filled in, the corresponding entries in <code>_cells</code>
+should be set to <code>true</code>. We've set things up such that the state of the cell at row <code>R</code> and column <code>C</code>
+is given by <code>_cells[R][C]</code>.</p>
+
+
+<h3 id="_hand"><code>_hand</code></h3>
+
+
+<p>An ArrayList that contains the "hand" of pieces that are currently available to the player. Values
+in this ArrayList may be null, indicating that the piece has already been used.</p>
+
+
+<h3 id="_score-and-_streaklength"><code>_score</code> and <code>_streakLength</code></h3>
+
+
+<p><code>_score</code> represents the current score of the game based on the scoring system outlined in the "The Puzzle"
+section. <code>_streakLength</code> represents the current streak of consecutive moves in which the player has
+successfully cleared a row or column. For example, if the player has cleared a row or column in each of
+the past 4 moves, then <code>_streakLength</code> should have a value of 4.</p>
+
+
+<h3 id="_history"><code>_history</code></h3>
+
+
+<p>A list of grid contents leading up to the current position.  This is useful for implementing the <code>undo</code>
+and <code>redo</code> methods.  The elements of the list are <code>GameStates</code>, a class whose use is restricted to
+<code>Model</code> and which represents a combination of the 2D grid, the player's hand, the score, and the
+streak length of the game at that point in time.</p>
+
+
+<h2 id="methods-of-model">Methods of Model</h2>
+
+
+<p>When starting the project, it will be helpful to use the unit tests in
+the skeleton as sanity tests to make sure you are writing correct
+code.  If you run the tests in <code>ModelTests.java</code> on the skeleton code,
+none of the tests will pass.  As you complete <code>FIXME</code>s,
+more of these test should start to pass, and all tests should pass
+upon completion of the project.  We suggest that you implement the
+incomplete methods of <code>Model</code> as follows:</p>
+
+
+<h3 id="the-constructors">The Constructors</h3>
+
+<p>As we will learn more about later, constructors are special types of
+methods that allow us to create new objects. For now, think of the
+Model constructors (the methods named <code>Model(int with, int height)</code>
+and <code>Model(Model model)</code>) as places where you need to set initial values
+for all relevant instance variables in the class. What is missing from
+the constructors currently that you think should be initialized
+before the game can be played?</p>
+
+
+<h3 id="get-int-row-int-col">get(int row, int col)</h3>
+
+<p>This method returns true if and only if the location described by
+(row, col) is currently filled or is not a location on the board.</p>
+
+
+<h3 id="placeable-piece-piece-int-row-int-col-and-placeable-piece-piece">placeable(Piece piece, int row, int col) and placeable(Piece piece)</h3>
+
+<p>There are four <code>placeable</code> methods here, which is an example of <em>method
+overloading</em> (once again, we'll learn more about this later in the semester);
+however, you will only need to implement two of them.
+The first should return true if the given piece can be placed with its
+reference point at (row, col), while the second should return true if
+the given piece can be placed anywhere on the board at all.</p>
+
+<p>(Hint: For good coding practice, try to use one <code>placeable</code> method to implement the other.)</p>
+
+<p>For a helpful visual, check out
+<a href="https://docs.google.com/presentation/d/16qwD9j-7SqhOs616SZh6LJShpYCEyj1cnM09-4XL4LY/edit?usp=sharing">this</a>
+slide deck to see more about how placeable works.</p>
+
+
+<h3 id="place-piece-piece-int-row-int-col">place(Piece piece, int row, int col)</h3>
+
+<p>Once we've determined that the piece can be placed at the given position
+using <code>placeable</code>, it's time to actually place the piece, which is what
+this method does.</p>
+
+
+<h3 id="the-hand-methods-handsize-handused-piece-int-k-clearhand-and-deal-piece-piece">The Hand Methods: handSize(), handUsed(), piece(int k), clearHand(), and deal(Piece piece)</h3>
+
+<p>These methods are responsible for the functionality of the player's hand
+in the Blocks game. You can read each method's Javadoc comment for more
+information, but they will all involve working with our instance
+variable <code>_hand</code> in some way.</p>
+
+
+<h3 id="place-int-k-int-row-int-col">place(int k, int row, int col)</h3>
+
+<p>Now that you've implemented the player's hand, you can implement the other
+version of the <code>place</code> method, which takes in an index <code>k</code> instead of a Piece
+object. Besides this difference, this method is very similar in function to
+the other <code>place</code> method.</p>
+
+
+<h3 id="rowcolumncounts">rowColumnCounts()</h3>
+
+<p>This method returns a 2D integer array <code>result</code> where <code>result[0][R]</code> gives the
+number of filled cells in row R of the grid, and <code>result[1][C]</code> gives the number
+of filled cells in column C of the grid. In other words, row 0 of the returned
+<code>result</code> array contains the filled cell counts for all of the rows, and row 1
+of the <code>result</code> array contains the filled cell counts for all of the columns.</p>
+
+
+<h3 id="scoreclearedlines-int-nrows-int-ncols">scoreClearedLines(int nrows, int ncols)</h3>
+
+<p>Given the number of filled rows and columns currently on the grid, this method
+calculates the score that will be added by clearing these filled lines.</p>
+
+
+<h3 id="clearfilledlines">clearFilledLines()</h3>
+
+<p>Once you've found all the filled lines and calculated their score, it's time
+to clear those lines from the grid; this method is responsible for doing so.</p>
+
+
+<h3 id="roundover">roundOver()</h3>
+
+<p>This method returns true if none of the Pieces in the current hand can be
+placed anywhere on the board.</p>
+
+
+<h3 id="undo-and-redo">undo() and redo()</h3>
+
+<p>These two methods will deal with the <code>_history</code> instance variable, among
+other things. Once implemented, you should be able to undo back to previous
+game states and redo forward to moves that you previously undid.</p>
+
+
+<h2 id="puzzlegenerator">PuzzleGenerator</h2>
+
+<p>This class contains the logic for creating new games at random.  Its
+representation contains a <em>pseudo-random number generator</em>, an object
+(<code>_random</code>) with
+methods that return numbers that have many of the statistical characteristics
+of sequences of integers selected by random natural processes.  In fact,
+however, they are only <em>pseudo-random</em>, in that they actual come out in
+a deterministic and reproducible sequence (good for debugging).  Be sure to
+find and read the documentation on the library class <code>java.util.Random</code> to
+see what is available.</p>
+
+<p>As in <code>Piece.java</code>, you only have one method to complete in this class.
+This is the <code>deal(Model model, int handSize)</code>, which deals a hand with
+<code>handSize</code> pieces to the given model. We mentioned the <code>_random</code> instance
+variable earlier; you'll need to use that in this method, so be sure to
+read up on the Random class documentation. You can find the Javadoc comment
+for this method above the <code>deal(Model model, int handSize)</code> method of the
+<code>PuzzleSource</code> class.</p>
+
+
+<h2 id="instrumentation-and-testing">Instrumentation and Testing</h2>
+
+
+<p><em>See the links in <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/materials/proj/proj0/index.html#useful-links">Useful Links</a> for useful testing information!</em></p>
+
+<p>To facilitate automated testing of your work, there are a few features that you
+can use to record sessions and to play back moves for testing or debugging
+purposes.  The skeleton is set up so that when you start your program with</p>
+
+<pre><code class="hljs">java -ea blocks.Main --log</code></pre>
+
+<p>you'll get a record on the standard output of your hand, the moves
+made, and all the menu commands
+entered. The -ea option stands for "enable assertions". Typically logs
+would be printed to the terminal, but one might want to save them to a
+file which can be done by capturing a log through redirection. You can
+capture logs using redirection, like this:</p>
+
+<pre><code class="hljs python">java -ea blocks.Main --log &gt; testing/myscript1.<span class="hljs-keyword">in</span></code></pre>
+
+<p>The <code>--seed</code> option will allow you to prime the random number generation so that
+you can get the same set of random numbers (the same initial puzzle generated)
+each time:</p>
+
+<pre><code class="hljs">java -ea blocks.Main --seed=42</code></pre>
+
+<p>The same seed produces the same random sequence, which will make the puzzle
+deterministic. This way bugs and other behavior can be reproduced.</p>
+
+<p>The <code>--testing</code> option reads in output produced by <code>--log</code> and uses it (in
+place of user clicks and random numbers) to supply the results of <code>getPuzzle</code>
+and <code>getCommand</code>.  Like <code>--log</code>, it also echoes the commands it reads.
+The <code>tester.py</code> script uses its output to test the
+program.  For example, to read back the file <code>myscript1.in</code>, use</p>
+
+<pre><code class="hljs python">java -ea blocks.Main --no-display --testing testing/myscript1.<span class="hljs-keyword">in</span></code></pre>
+
+<p>This will print out what tester.py sees, which it compares to
+<code>testing/myscript1.std</code>.  Using <code>--log</code> and <code>--testing</code>, you can thus create
+your own <code>.in</code> and <code>.std</code> testing files to augment the ones we've provided in
+<code>testing</code>.</p>
+
+<p>We have set up the Makefiles in the <code>proj0</code> directory and in the
+<code>blocks</code> subdirectory to have targets <code>check</code> and <code>unit</code>.  In order to
+use make, you'll need to install it. Follow <a href="https://inst.eecs.berkeley.edu/~cs61b/sp22/docs/make-install.html">the instructions
+here</a> to do so.  You may have already
+done so in HW 1.</p>
+
+<p>Once installed, the command</p>
+
+<pre><code class="hljs">make unit</code></pre>
+
+<p>will run all the <em>unit tests</em> on <code>Model.java</code>, <code>PuzzleGenerator.java</code> and
+<code>Piece.java</code>. If you try this on
+the skeleton, you'll see that, unsurprisingly, it fails all these tests, giving
+you an indication of what needs to be changed. If you are
+using the IntelliJ debugger on the unit tests, note that
+there are timeouts on these tests, so your debugging session
+may end abruptly due to these timeouts. To get around this,
+feel free to comment out the timeouts at the top of the unit
+test files. See the end of the <a href="https://youtu.be/TRnHHCNmLts">Unit Testing Tips</a>
+video for an example of how to do this.</p>
+
+<p>The command <code>make acceptance</code> in the <code>proj0</code> directory will run
+<em>acceptance tests</em>, which run the program and check its outputs
+against expected output using the scripts <code>tester.py</code> and <code>testing.py</code>
+in the <code>testing</code> subdirectory. Acceptance tests test all the
+program's components together.</p>
+
+<p>Usually, you will probably want to use the command <code>make check</code> for testing,
+which runs both the unit and acceptance tests.
+<strong>By the time you finish the project
+<code>make check</code> should report no errors.</strong> If your
+python command is <code>python</code> rather than <code>python3</code> you will need to use
+<code>make PYTHON=python check</code> to run the acceptance tests.</p>
+
+
+<h2 id="running-acceptance-tests-in-intellij">Running Acceptance Tests in IntelliJ</h2>
+
+
+<p>Acceptance tests used in <code>make check</code> are stored under the
+<code>proj0/testing</code> folder.  If you would like to run an acceptance test
+in IntelliJ so that you can use the debugger, use the following steps:</p>
+
+<ol>
+  <li>Navigate to the Main class in IntelliJ and open it.</li>
+  <li>Click on Run &gt; Edit Configurations...</li>
+  <li>In the left sidebar of the pop-up window, under "Application", select Main.</li>
+  <li>For "Program arguments", put in <code>--no-display --testing testing/&lt;test_file&gt;</code> where
+  <code>&lt;test_file&gt;</code> is the name of the file of the acceptance test you would like
+  to run.</li>
+</ol>
+
+<p>For example, if you would like to run acceptance test 1, you should
+have <code>--no-display --testing testing/01-full-round1.in</code> as your program arguments.</p>
+
+<ol>
+  <li>Now you can click Run &gt; Run 'Main' or Run &gt; Debug 'Main' to run and
+  use the debugger on the acceptance tests. Remember to set a breakpoint
+  if you're debugging!</li>
+</ol>
+
+
+<h2 id="submission-and-version-control">Submission and Version Control</h2>
+
+
+<p>It is important that you commit work to your repository <em>at frequent intervals</em>.
+Version control is a powerful tool for saving yourself when you mess something
+up or your dog eats your project, but you must use it regularly if it is to be
+of any use.  Feel free to commit every 15 minutes; Git only saves what has
+changed, even though it acts as if it takes a snapshot of your entire project.</p>
+
+<p>The command <code>git status</code> will tell you what you have modified, removed, or
+added since the last commit.  It will also tell you what you have
+not yet sent to your central repository.  You needn't just assume that things
+are as you expect; <code>git status</code> will tell you whether you've committed and
+pushed everything.</p>
+
+<p>If you are switching between using a clone of your central repository on the
+instructional computers and another at home (or on your laptop), be careful to
+synchronize your work.  When you are done working on one system, be sure to push
+your work to the central repository:</p>
+
+<pre><code class="hljs python">git status                          <span class="hljs-comment"># To see what needs to be added or committed.</span>
+git add &lt;filepath&gt;                  <span class="hljs-comment"># To add, or stage, any new files.</span>
+git commit -a -m <span class="hljs-string">"Commit message"</span>   <span class="hljs-comment"># To commit changes.</span>
+git push</code></pre>
+
+<p>If you start working on the other system, you then do</p>
+
+<pre><code class="hljs makefile">git status          <span class="hljs-comment"># To make sure you didn't accidentally leave</span>
+                    <span class="hljs-comment"># stuff uncommitted or untracked (if you did, commit</span>
+                    <span class="hljs-comment"># it before doing the next step.)</span>
+git pull --rebase   <span class="hljs-comment"># Get changes from your central repo.</span></code></pre>
+
+<p>Submit your project by committing and tagging it:</p>
+
+<pre><code class="hljs makefile">git tag proj0-0     <span class="hljs-comment"># Or proj0-1, etc.</span>
+git push
+git push --tags</code></pre>
+
+<p>Be sure to respond to all prompts and to make sure the messages you get indicate
+that the submission was successful.  Don't just "say the magic words" and assume
+that everything's OK.</p>
+
+
+<h2 id="grading-details">Grading Details</h2>
+
+
+<p>For Project 0: Blocks, style will be worth 2 points, passing the unit
+tests will be worth 8 points, and passing the acceptance tests will
+be worth 6 points. The IntelliJ Style checker plugin is <strong>inconsistent</strong> with the
+style checker used on the autograder. To correctly check style
+locally, use <code>make style</code>.</p>
+
+<p>Checking in your code (adding, committing and pushing) and pushing
+tags will submit your code to the autograder on Gradescope. You can
+see your score and details about your submission there. There will not
+be hidden test on this project, though there well may be in future
+projects, so please practice writing your own tests!</p>
+
+<p>In order to encourage testing your own code without relying on the
+autograder, you will be able to submit <strong>once every 3 hours</strong>. Starting
+at 6PM PT the day the assignment is due (2/11), you will be able to
+submit <strong>once every hour</strong>. To account for any technical difficulties,
+in the last hour before the deadline you will be able to submit as many
+times as you want. Past the assignment deadline, you can
+submit as often as you would like (see the project lateness policy
+for information on getting credit for submitting late). Furthermore,
+to encourage that you utilize the full test suite that is released
+with the assignment, you won't be able to see the output of
+unit or acceptance tests ran on the autograder until two days before
+the assignment is due (2/9).</p>
+
+<p>It will likely be very difficult to get full credit on this
+assignment if you wait until the last minute, so please use the
+limited submissions you have wisely. The unit and acceptance tests
+that you have are <strong>the same</strong> as the tests the autograder runs, so
+you shouldn't need to submit to gradescope too often, only when you
+want an idea for your final score.</p>
+
+<p>The idea behind this policy is that <strong><em>we want you to get out of the
+habit of using the autograder to test and debug your program.</em></strong>
+Ideally, you would have already thoroughly tested your code before submitting
+it and would need only a few submissions.  However, we understand
+that this can be difficult for beginning programmers, so we'll be pretty
+loose on submissions.</p>
+    </main></div>
+
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: STIXSizeOneSym, sans-serif;"></div></div></body></html>
