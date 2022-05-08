@@ -1,4 +1,6 @@
-# CS61B
+# 2022 Projects: 
+
+Projects that were completed in 2022.
 
 Projects:
 
