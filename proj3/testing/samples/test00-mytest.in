@@ -1,0 +1,11 @@
+#Test
+> init
+<<<
+> init
+A Gitlet version-control system already exists in the current directory.
+<<<
++ wuggy.txt wug.txt
+> add wuggy.txt
+<<<
+> commit "added wuggy"
+<<<
